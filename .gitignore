@@ -1,1 +1,17 @@
 .azure
+
+**.DS_Store
+
+# Ignore everything in the data folder
+/data/*
+# Except the docs directory within data
+!/data/docs/
+
+# Ignore everything in the docs directory
+/data/docs/*
+
+# Except the samples directory within docs
+!/data/docs/samples/
+
+# Ensure all files within samples are tracked
+!/data/docs/samples/**

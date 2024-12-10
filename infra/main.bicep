@@ -38,6 +38,21 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
 
 // Resouces definitions
 
+// Blob Storage
+module storage 'core/storage/storage-account.bicep' = {
+  name: 'stroage'
+  scope: rg
+  params: {
+    name: '${abbrs.storageStorageAccounts}${resourceToken}'
+    location: location
+    tags: tags
+    containers: [
+      {name: 'docs'}
+    ]
+    isHnsEnabled: true
+  }
+}
+
 
 // AI Search
 module search 'core/search/search-services.bicep' = {
@@ -148,3 +163,11 @@ module aiProject 'core/ai/project.bicep' = {
     tags: tags
   }
 }
+
+
+// output parameters
+
+// Storage Outputs
+output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name
+output AZURE_STORAGE_CONTAINER_NAME string = storage.outputs.containerName
+output AZURE_STORAGE_ACCOUNT_KEY string = storage.outputs.storageAccountKey

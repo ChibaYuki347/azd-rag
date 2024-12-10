@@ -1,3 +1,17 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
 
 name: rag
+hooks:
+  postprovision: 
+    posix:
+      shell: sh
+      continueOnError: false
+      interactive: true
+      run: |
+       ./scripts/sync_to_blob.sh
+    windows:
+      shell: pwsh
+      continueOnError: false
+      interactive: true
+      run: |
+       ./scripts/sync_to_blob.ps1
