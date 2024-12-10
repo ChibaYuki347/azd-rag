@@ -2,15 +2,16 @@
 
 AzureでRAGを構築するための日本語サンプル構成です。
 
-# 構成
+## 構成
 
 Azure Developer CLIを利用してリソース作成やインデックの作成を行います。
 
-# 事前準備
+## 事前準備
 
 - [Azure Developer CLI](https://learn.microsoft.com/ja-jp/azure/developer/azure-developer-cli/overview?tabs=windows)のインストール
 
 Azure Developer CLIへのログインを行う
+
 ```bash
 azd auth login
 ```
@@ -19,6 +20,7 @@ azd auth login
 - [Azure CLI](https://learn.microsoft.com/ja-jp/cli/azure/install-azure-cli)のインストール
 
 Azure CLIへのログインを行う
+
 ```bash
 az login
 ```
@@ -30,10 +32,14 @@ az login
 - (スクリプトにエラーが出る場合)PowerShellスクリプト、及びShellスクリプトへの実行権限を付与してください。
 
 Shell
+
 ```bash
-chmod +x ./scripts/sync_to_blob.sh # Shellのパス
+chmod +x ./scripts/sync_to_blob.sh # shellのパス
+chmod +x ./scripts/initial_setup_aisearch.sh # shellのパス
 ```
+
 PowerShell
+
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
@@ -65,14 +71,11 @@ hooks:
 ```
 
 [スクリプト一覧](./scripts/Readme.md)についてこちらで詳細を確認できます。
-# インフラの作成
+
+## インフラの作成
 
 ```bash
 azd provision
 ```
 
 こちらのコマンドを実行することで、Azure上にリソースが作成されます。
-
-
-
-

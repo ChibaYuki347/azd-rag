@@ -12,6 +12,17 @@ param location string
 // openai resouce model
 param embeddingModel string = 'text-embedding-3-large'
 
+// ai services region
+@description('Region for the AI Services resource')
+@allowed(['eastus','eastus2','northcentralus','swedencentral','westus'])
+param aiServicesRegion string = 'eastus2'
+
+// AI Search region
+@description('Region for the AI Search resource')
+@allowed(['eastus','eastus2','northcentralus','swedencentral','westus'])
+param searchRegion string = 'eastus2'
+
+
 // Generate a unique token to be used in naming resources.
 // Remove linter suppression after using.
 #disable-next-line no-unused-vars
@@ -60,10 +71,25 @@ module search 'core/search/search-services.bicep' = {
   scope: rg
   params: {
     name: '${abbrs.searchSearchServices}${resourceToken}'
-    location: location
+    location: searchRegion
     tags: tags
     sku: {
       name: 'basic'
+    }
+  }
+}
+
+// AI Services
+module aiservices 'core/ai/cognitiveservices-preview.bicep' = {
+  name: 'aiservices'
+  scope: rg
+  params: {
+    name: 'aiservices${abbrs.cognitiveServicesAccounts}${resourceToken}'
+    location: aiServicesRegion
+    kind: 'CognitiveServices'
+    tags: tags
+    sku: {
+      name: 'S0'
     }
   }
 }
@@ -171,3 +197,17 @@ module aiProject 'core/ai/project.bicep' = {
 output AZURE_STORAGE_ACCOUNT_NAME string = storage.outputs.name
 output AZURE_STORAGE_CONTAINER_NAME string = storage.outputs.containerName
 output AZURE_STORAGE_ACCOUNT_KEY string = storage.outputs.storageAccountKey
+output AZURE_STORAGE_CONNECTION_STRING string = storage.outputs.storageAccountConnectionString
+
+// AI Search Outputs
+output AZURE_SEARCH_ENDPOINT string = search.outputs.endpoint
+output AZURE_SEARCH_PRINCIPAL_ID string = search.outputs.principalId
+output AZURE_SEARCH_KEY string = search.outputs.primaryKey
+
+// OpenAI Outputs
+output AZURE_OPENAI_ENDPOINT string = openai.outputs.endpoint
+output AZURE_OPENAI_KEY string = openai.outputs.accountKey
+output AZURE_OPENAI_EMBEDDING_MODEL string = embeddingModel
+
+// AI Services Outputs
+output AZURE_AISERVICES_KEY string = aiservices.outputs.accountKey

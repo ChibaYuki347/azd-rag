@@ -8,10 +8,10 @@ hooks:
       continueOnError: false
       interactive: true
       run: |
-       ./scripts/sync_to_blob.sh
+       ./scripts/sync_to_blob.sh;./scripts/initial_setup_aisearch.sh
     windows:
       shell: pwsh
       continueOnError: false
       interactive: true
       run: |
-       ./scripts/sync_to_blob.ps1
+       ./scripts/sync_to_blob.ps1;./scripts/initial_setup_aisearch.ps1

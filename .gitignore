@@ -2,6 +2,8 @@
 
 **.DS_Store
 
+.venv/
+
 # Ignore everything in the data folder
 /data/*
 # Except the docs directory within data

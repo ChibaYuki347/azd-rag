@@ -1,0 +1,6 @@
+# scripts dependencies
+openai
+openpyxl
+python-dotenv
+requests
+pandas
